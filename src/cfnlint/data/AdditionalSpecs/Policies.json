@@ -5422,8 +5422,8 @@
       ]
     },
     "AWS Migration Hub Refactor Spaces": {
-      "ARNFormat": "arn:aws:refactor-spaces:${Region}:${Account}:${ResourceType}/${RelativeId}",
-      "ARNRegex": "^arn:aws:refactor-spaces:.+",
+      "ARNFormat": "arn:${Partition}:refactor-spaces:${Region}:${Account}:${ResourceType}/${RelativeId}",
+      "ARNRegex": "^arn:${Partition}:refactor-spaces:.+",
       "Actions": [
         "CreateApplication",
         "CreateEnvironment",
@@ -5447,7 +5447,8 @@
         "ListTagsForResource",
         "PutResourcePolicy",
         "TagResource",
-        "UntagResource"
+        "UntagResource",
+        "UpdateRoute"
       ],
       "HasResource": true,
       "StringPrefix": "refactor-spaces",
@@ -7280,7 +7281,12 @@
         "UpdateTimelineEvent"
       ],
       "HasResource": true,
-      "StringPrefix": "ssm-incidents"
+      "StringPrefix": "ssm-incidents",
+      "conditionKeys": [
+        "aws:RequestTag/${TagKey}",
+        "aws:ResourceTag/${TagKey}",
+        "aws:TagKeys"
+      ]
     },
     "AWS Systems Manager Incident Manager Contacts": {
       "ARNFormat": "arn:aws:ssm-contacts:${Region}:${Account}:${ResourceType}/${ResourceId}",
@@ -8213,8 +8219,8 @@
       ]
     },
     "Amazon Chime": {
-      "ARNFormat": "arn:aws:chime::${AccountId}:${ResourceType}/${ResourceID}",
-      "ARNRegex": "^arn:aws:chime:.+",
+      "ARNFormat": "arn:${Partition}:chime::${AccountId}:${ResourceType}/${ResourceID}",
+      "ARNRegex": "^arn:${Partition}:chime:.+",
       "Actions": [
         "AcceptDelegate",
         "ActivateUsers",
@@ -8244,7 +8250,6 @@
         "CreateAppInstanceUser",
         "CreateAttendee",
         "CreateBot",
-        "CreateBotMembership",
         "CreateCDRBucket",
         "CreateChannel",
         "CreateChannelBan",
@@ -8432,6 +8437,7 @@
         "RestorePhoneNumber",
         "RetrieveDataExports",
         "SearchAvailablePhoneNumbers",
+        "SearchChannels",
         "SendChannelMessage",
         "StartDataExport",
         "StartMeetingTranscription",
@@ -11401,6 +11407,7 @@
         "CreateExplainabilityExport",
         "CreateForecast",
         "CreateForecastExportJob",
+        "CreateMonitor",
         "CreatePredictor",
         "CreatePredictorBacktestExportJob",
         "DeleteDataset",
@@ -11410,6 +11417,7 @@
         "DeleteExplainabilityExport",
         "DeleteForecast",
         "DeleteForecastExportJob",
+        "DeleteMonitor",
         "DeletePredictor",
         "DeletePredictorBacktestExportJob",
         "DeleteResourceTree",
@@ -11421,6 +11429,7 @@
         "DescribeExplainabilityExport",
         "DescribeForecast",
         "DescribeForecastExportJob",
+        "DescribeMonitor",
         "DescribePredictor",
         "DescribePredictorBacktestExportJob",
         "GetAccuracyMetrics",
@@ -11431,10 +11440,13 @@
         "ListExplainabilityExports",
         "ListForecastExportJobs",
         "ListForecasts",
+        "ListMonitorEvaluations",
+        "ListMonitors",
         "ListPredictorBacktestExportJobs",
         "ListPredictors",
         "ListTagsForResource",
         "QueryForecast",
+        "ResumeResource",
         "StopResource",
         "TagResource",
         "UntagResource",
@@ -12926,22 +12938,6 @@
         "aws:RequestTag/${TagKey}",
         "aws:ResourceTag/${TagKey}",
         "aws:TagKeys"
-      ]
-    },
-    "Amazon Macie Classic": {
-      "Actions": [
-        "AssociateMemberAccount",
-        "AssociateS3Resources",
-        "DisassociateMemberAccount",
-        "DisassociateS3Resources",
-        "ListMemberAccounts",
-        "ListS3Resources",
-        "UpdateS3Resources"
-      ],
-      "HasResource": false,
-      "StringPrefix": "macie",
-      "conditionKeys": [
-        "aws:SourceArn"
       ]
     },
     "Amazon Managed Blockchain": {
@@ -15381,6 +15377,7 @@
         "DescribeEndpointConfig",
         "DescribeExperiment",
         "DescribeFeatureGroup",
+        "DescribeFeatureMetadata",
         "DescribeFlowDefinition",
         "DescribeHumanLoop",
         "DescribeHumanTaskUi",
@@ -15522,6 +15519,8 @@
         "UpdateEndpoint",
         "UpdateEndpointWeightsAndCapacities",
         "UpdateExperiment",
+        "UpdateFeatureGroup",
+        "UpdateFeatureMetadata",
         "UpdateImage",
         "UpdateModelPackage",
         "UpdateMonitoringSchedule",
@@ -15560,6 +15559,7 @@
         "sagemaker:InstanceTypes",
         "sagemaker:InterContainerTrafficEncryption",
         "sagemaker:MaxRuntimeInSeconds",
+        "sagemaker:MinimumInstanceMetadataServiceVersion",
         "sagemaker:ModelApprovalStatus",
         "sagemaker:ModelArn",
         "sagemaker:NetworkIsolation",
@@ -15576,6 +15576,21 @@
         "sagemaker:WorkteamArn",
         "sagemaker:WorkteamType"
       ]
+    },
+    "Amazon SageMaker Ground Truth Synthetic": {
+      "ARNFormat": "arn:${Partition}:sagemaker-groundtruth-synthetic:${Region}:${AccountId}:${ResourceType}/${ResourceId}",
+      "ARNRegex": "^arn:${Partition}:sagemaker-groundtruth-synthetic:.+",
+      "Actions": [
+        "CreateProject",
+        "DeleteProject",
+        "GetBatch",
+        "GetProject",
+        "ListBatchSummaries",
+        "ListProjectSummaries",
+        "UpdateBatch"
+      ],
+      "HasResource": false,
+      "StringPrefix": "sagemaker-groundtruth-synthetic"
     },
     "Amazon Session Manager Message Gateway Service": {
       "Actions": [
