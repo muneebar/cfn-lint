@@ -38,12 +38,12 @@ class Length(CloudFormationLintRule):
 
             if 'Ref' in fn_length_value:
                 if fn_length_value['Ref'] not in cfn.get_parameter_names():
-                    self.addMatch(matches, tree, 'Fn::Length can only reference list parameters at {0}')
+                    self.addMatch(matches, tree, 'Fn::Length can only reference list or map parameters  at {0}')
                 else:
                     referenced_parameter = cfn.get_parameters().get(fn_length_value['Ref'])
                     parameter_type = referenced_parameter.get('Type')
                     if 'List' not in parameter_type:
-                        self.addMatch(matches, tree, 'Fn::Length can only reference list parameters at {0}')
+                        self.addMatch(matches, tree, 'Fn::Length can only reference list or map parameters at {0}')
 
     def addMatch(self, matches, tree, message):
         matches.append(RuleMatch(tree[:], message.format('/'.join(map(str, tree)))))
